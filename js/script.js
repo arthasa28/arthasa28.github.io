@@ -8,6 +8,8 @@ menuIcon.onclick = () => {
 };
 
 
+
+
 /*========== scroll sections active link ==========*/
 let sections = document.querySelectorAll('section');
 let navLinks = document.querySelectorAll('header nav a');
@@ -78,6 +80,7 @@ ScrollReveal({
   const scriptURL = 'https://script.google.com/macros/s/AKfycbxFmlcMiHZbxkGPEr-avyMQtq0t43JmxCcj6fSR4HsHtfsM-6Kl9KHjm9wezQLAtyO9/exec'
   const form = document.forms['submit-to-send'];
 
+  /* Panggil Dulu Semuanya, agar Gampang */
   /*=== Button Kirim ===*/
   const btnKirim = document.querySelector('.btn-kirim');
 
@@ -117,8 +120,8 @@ ScrollReveal({
       .catch(error => {
 
          /*=== tampilkan tombol submit, hilangkan tombol loading ===*/
-         btnLoading.classList.toggle('d-none');
-         btnKirim.classList.toggle('d-none');
+         btnLoading.classList.toggle('d-none'); /*Tombol Loading */
+         btnKirim.classList.toggle('d-none');   /* Tombol Submit */
 
          /*=== Jika gagal mengirim tampilkan alert failed ===*/
          myFailed.classList.toggle('d-none')
@@ -126,6 +129,7 @@ ScrollReveal({
         console.error('Error!', error.message)
     })
   })
+
 
 ScrollReveal().reveal('.home-content, .heading', { origin: 'top' });
 ScrollReveal().reveal('.home-img img, .services-container, .portfolio-box, .testimonial-wrapper, .contact form', { origin: 'bottom' });
