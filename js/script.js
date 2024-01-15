@@ -1,137 +1,132 @@
 /*========== menu icon navbar ==========*/
-let menuIcon = document.querySelector('#menu-icon');
-let navbar = document.querySelector('.navbar');
+let menuIcon = document.querySelector("#menu-icon");
+let navbar = document.querySelector(".navbar");
 
 menuIcon.onclick = () => {
-    menuIcon.classList.toggle('bx-x');
-    navbar.classList.toggle('active');
+  menuIcon.classList.toggle("bx-x");
+  navbar.classList.toggle("active");
 };
-
-
-
 
 /*========== scroll sections active link ==========*/
-let sections = document.querySelectorAll('section');
-let navLinks = document.querySelectorAll('header nav a');
+let sections = document.querySelectorAll("section");
+let navLinks = document.querySelectorAll("header nav a");
 
 window.onscroll = () => {
-    sections.forEach(sec => {
-        let top = window.scrollY;
-        let offset = sec.offsetTop - 150;
-        let height = sec.offsetHeight;
-        let id = sec.getAttribute('id');
+  sections.forEach((sec) => {
+    let top = window.scrollY;
+    let offset = sec.offsetTop - 150;
+    let height = sec.offsetHeight;
+    let id = sec.getAttribute("id");
 
-        if(top >= offset && top < offset + height) {
-            navLinks.forEach(links => {
-                links.classList.remove('active');
-                document.querySelector('header nav a[href*=' + id + ']').classList.add('active');
-            });
-        };
-    });
+    if (top >= offset && top < offset + height) {
+      navLinks.forEach((links) => {
+        links.classList.remove("active");
+        document
+          .querySelector("header nav a[href*=" + id + "]")
+          .classList.add("active");
+      });
+    }
+  });
 
+  /*========== sticky navbar ==========*/
+  let header = document.querySelector(".header");
 
-/*========== sticky navbar ==========*/
-let header = document.querySelector('.header');
+  header.classList.toggle("sticky", window.scrollY > 100);
 
-header.classList.toggle('sticky', window.scrollY > 100);
-
-
-/*========== remove menu icon navbar when click navbar link (scroll) ==========*/
-menuIcon.classList.remove('bx-x');
-navbar.classList.remove('active');
-
+  /*========== remove menu icon navbar when click navbar link (scroll) ==========*/
+  menuIcon.classList.remove("bx-x");
+  navbar.classList.remove("active");
 };
-
 
 /*========== swiper ==========*/
 var swiper = new Swiper(".mySwiper", {
-    slidesPerView: 1,
-    spaceBetween: 50,
-    loop: true,
-    grabCursor: true,
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
-    },
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
+  slidesPerView: 1,
+  spaceBetween: 50,
+  loop: true,
+  grabCursor: true,
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+  },
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
 });
 
-
 /*========== dark light mode ==========*/
-let darkModeIcon = document.querySelector('#darkMode-icon');
+let darkModeIcon = document.querySelector("#darkMode-icon");
 
 darkModeIcon.onclick = () => {
-    darkModeIcon.classList.toggle('bx-sun');
-    document.body.classList.toggle('dark-mode');
+  darkModeIcon.classList.toggle("bx-sun");
+  document.body.classList.toggle("dark-mode");
 };
-
 
 /*========== scroll reveal ==========*/
 ScrollReveal({
-    // reset: true,
-    distance: '80px',
-    duration: 2000,
-    delay: 200
+  // reset: true,
+  distance: "80px",
+  duration: 2000,
+  delay: 200,
 });
 
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbxFmlcMiHZbxkGPEr-avyMQtq0t43JmxCcj6fSR4HsHtfsM-6Kl9KHjm9wezQLAtyO9/exec'
-  const form = document.forms['submit-to-send'];
+const scriptURL =
+  "https://script.google.com/macros/s/AKfycbxFmlcMiHZbxkGPEr-avyMQtq0t43JmxCcj6fSR4HsHtfsM-6Kl9KHjm9wezQLAtyO9/exec";
+const form = document.forms["submit-to-send"];
 
-  /* Panggil Dulu Semuanya, agar Gampang */
-  /*=== Button Kirim ===*/
-  const btnKirim = document.querySelector('.btn-kirim');
+/* Panggil Dulu Semuanya, agar Gampang */
+/*=== Button Kirim ===*/
+const btnKirim = document.querySelector(".btn-kirim");
 
-   /*=== Button Loading ===*/
-   const btnLoading = document.querySelector('.btn-loading');
+/*=== Button Loading ===*/
+const btnLoading = document.querySelector(".btn-loading");
 
-    /*=== Alert Succes ===*/
-    const myAlert = document.querySelector('.my-alert');
+/*=== Alert Succes ===*/
+const myAlert = document.querySelector(".my-alert");
 
-    /*=== Alert Succes ===*/
-    const myFailed = document.querySelector('.my-failed');
+/*=== Alert Succes ===*/
+const myFailed = document.querySelector(".my-failed");
 
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-  form.addEventListener('submit', e => {
-    e.preventDefault()
+  /*=== Ketika Tombol submit diklik ===*/
+  /*=== tampilkan tombol loading, hilangkan tombol submit ===*/
+  btnLoading.classList.toggle("d-none");
+  btnKirim.classList.toggle("d-none");
 
-    /*=== Ketika Tombol submit diklik ===*/
-    /*=== tampilkan tombol loading, hilangkan tombol submit ===*/
-    btnLoading.classList.toggle('d-none');
-    btnKirim.classList.toggle('d-none');
+  fetch(scriptURL, { method: "POST", body: new FormData(form) })
+    .then((response) => {
+      /*=== tampilkan tombol submit, hilangkan tombol loading ===*/
+      btnLoading.classList.toggle("d-none");
+      btnKirim.classList.toggle("d-none");
 
-    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-      .then(response => {
+      /*=== tampilkan alert succes ===*/
+      myAlert.classList.toggle("d-none");
 
-        /*=== tampilkan tombol submit, hilangkan tombol loading ===*/
-        btnLoading.classList.toggle('d-none');
-        btnKirim.classList.toggle('d-none');
+      /*=== Reset Formnya ===*/
+      form.reset();
 
-        /*=== tampilkan alert succes ===*/
-        myAlert.classList.toggle('d-none')
-
-        /*=== Reset Formnya ===*/
-        form.reset();
-
-        console.log('Success!', response)
+      console.log("Success!", response);
     })
-      .catch(error => {
+    .catch((error) => {
+      /*=== tampilkan tombol submit, hilangkan tombol loading ===*/
+      btnLoading.classList.toggle("d-none"); /*Tombol Loading */
+      btnKirim.classList.toggle("d-none"); /* Tombol Submit */
 
-         /*=== tampilkan tombol submit, hilangkan tombol loading ===*/
-         btnLoading.classList.toggle('d-none'); /*Tombol Loading */
-         btnKirim.classList.toggle('d-none');   /* Tombol Submit */
+      /*=== Jika gagal mengirim tampilkan alert failed ===*/
+      myFailed.classList.toggle("d-none");
 
-         /*=== Jika gagal mengirim tampilkan alert failed ===*/
-         myFailed.classList.toggle('d-none')
+      console.error("Error!", error.message);
+    });
+});
 
-        console.error('Error!', error.message)
-    })
-  })
-
-
-ScrollReveal().reveal('.home-content, .heading', { origin: 'top' });
-ScrollReveal().reveal('.home-img img, .services-container, .portfolio-box, .testimonial-wrapper, .contact form', { origin: 'bottom' });
-ScrollReveal().reveal('.home-content h1, .about-img img', { origin: 'left' });
-ScrollReveal().reveal('.home-content h3, .home-content p, .about-content', { origin: 'right' });
+ScrollReveal().reveal(".home-content, .heading", { origin: "top" });
+ScrollReveal().reveal(
+  ".home-img img, .services-container, .portfolio-box, .testimonial-wrapper, .contact form",
+  { origin: "bottom" }
+);
+ScrollReveal().reveal(".home-content h1, .about-img img", { origin: "left" });
+ScrollReveal().reveal(".home-content h3, .home-content p, .about-content", {
+  origin: "right",
+});
